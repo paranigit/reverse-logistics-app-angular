@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "9f9e85e4-5d09-4ae0-8e4f-e15d79d950f1"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -20,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/reverse-logistics-app-angular",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

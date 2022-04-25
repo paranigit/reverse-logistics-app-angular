@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: reverse-logistics-app-angular
+  labels:
+    app: reverse-logistics-app-angular
+spec:
+  containers:
+  - env:
+    - name: API_ROD_PRED
+      value: ''
+    image: docker.io/paranidocker/rev-log-frontend-angular:latest
+    imagePullPolicy: Always
+    name: app-frontend-angular
+    ports:                              
+    - containerPort: 8080
+      protocol: TCP
+    resources: {}

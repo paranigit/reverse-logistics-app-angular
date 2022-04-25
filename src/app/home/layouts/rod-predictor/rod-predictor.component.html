@@ -1,0 +1,93 @@
+<div class="container py-5">
+    <p class="font-italic font-weight-light">Let's find the Probability of Return on Delivery for Mobiles of Popular Brands!</p>
+    <div class="row">
+        <div class="col-sm-10 col-md-8">
+            <form [formGroup]="form">
+                <mat-form-field class="form-field full-width">
+                    <mat-select 
+                      formControlName="category" 
+                      [(ngModel)]="predictor.category"
+                      placeholder="Category">
+                      <mat-option *ngFor="let item of categories" [value]="item.category"> {{ item.category }} </mat-option>
+                    </mat-select>
+                    <mat-error>Please select a Category</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field full-width" *ngIf="predictor.category">
+                    <mat-select 
+                      formControlName="product"
+                      placeholder="Product" (selectionChange)="onWriterChange()">
+                      <mat-option *ngFor="let item of (categories | filterCategory:{ category : predictor.category })[0].products" [value]="item"> {{ item }} </mat-option>
+                    </mat-select>
+                    <mat-error>Please select a Product</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field full-width">
+                    <mat-select 
+                      formControlName="city" 
+                      [(ngModel)]="predictor.city"
+                      placeholder="City">
+                      <mat-option *ngFor="let item of cities" [value]="item"> {{ item }} </mat-option>
+                    </mat-select>
+                    <mat-error>Please select a City</mat-error>
+                </mat-form-field>
+                <div class="row my-3">
+                    <div class="col-lg-4">
+                        <p>Mode of Payment</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <mat-radio-group aria-label="Select an option" formControlName="mop" [(ngModel)]="predictor.mop" class="mx-3">
+                            <mat-radio-button value="COD">Cash on Delivery</mat-radio-button>
+                            <mat-radio-button value="Prepaid" class="mx-5">Prepaid</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-lg-4">
+                        <p>Mode of Delivery</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <mat-radio-group aria-label="Select an option" formControlName="mod" [(ngModel)]="predictor.mod" class="mx-3">
+                            <mat-radio-button value="standard">Standard</mat-radio-button>
+                            <mat-radio-button value="express" class="mx-5">Express</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <!-- <div class="row my-3">
+                    <div class="col-lg-4">
+                        <p>Week Day of Delivery</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <mat-button-toggle-group formControlName="dow" [(ngModel)]="predictor.deliveryDow" aria-label="Font Style" class="mx-3">
+                            <mat-button-toggle value="6">Sun</mat-button-toggle>
+                            <mat-button-toggle value="0">Mon</mat-button-toggle>
+                            <mat-button-toggle value="1">Tue</mat-button-toggle>
+                            <mat-button-toggle value="2">Wed</mat-button-toggle>
+                            <mat-button-toggle value="3">Thr</mat-button-toggle>
+                            <mat-button-toggle value="4">Fri</mat-button-toggle>
+                            <mat-button-toggle value="5">Sat</mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                </div> -->
+            </form>
+            <button mat-raised-button 
+                color="primary"
+                class="float-right"
+                (click)="onSubmit()"
+                [disabled]="!form.valid">Predict</button>
+        </div>
+        <div class="col-sm-2 col-md-4">
+            <ng-container *ngIf="isLoading; else elseTemplate">
+                <div class="d-flex justify-content-center">
+                    <mat-spinner [diameter]="25" class="mx"></mat-spinner>
+                </div>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <div class="text-center">
+                    <p>Return on Delivery Probability</p>
+                    <h3 class="prob">{{ rodProb | number : '1.2-2' }}%</h3>
+                </div>
+            </ng-template>
+            
+        </div>
+    </div>
+</div>
+
